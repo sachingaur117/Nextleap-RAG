@@ -1,0 +1,14 @@
+# Environments
+venv/
+.env
+
+# Cache
+__pycache__/
+*.pyc
+
+# Data & Databases (Let the cloud re-scrape and rebuild this)
+phase1_data_acquisition/data/
+phase2_vector_database/chroma_db/
+
+# Logs
+*.log

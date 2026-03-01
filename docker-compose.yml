@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    command: uvicorn phase4_backend.app:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./phase2_vector_database/chroma_db:/app/phase2_vector_database/chroma_db
+
+  frontend:
+    build: .
+    command: streamlit run phase5_frontend/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://backend:8000/chat
+    depends_on:
+      - backend
+
+  scheduler:
+    build: .
+    command: python phase6_scheduler/scheduler.py
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - ./phase1_data_acquisition/data:/app/phase1_data_acquisition/data
+      - ./phase2_vector_database/chroma_db:/app/phase2_vector_database/chroma_db
