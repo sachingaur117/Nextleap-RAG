@@ -1,5 +1,5 @@
 # Use a more robust Debian-based Python runtime
-FROM python:3.9-bookworm
+FROM python:3.11-bookworm
 
 # Set working directory
 WORKDIR /app
