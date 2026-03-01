@@ -11,5 +11,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the current directory contents into the container
 COPY . .
 
-# Note: In a production environment, you should run the Backend and Frontend in separate containers.
-# We will use docker-compose to orchestrate this.
+# Ensure the orchestrator script is executable
+RUN chmod +x start.sh
+
+# Start the application!
+CMD ["./start.sh"]
